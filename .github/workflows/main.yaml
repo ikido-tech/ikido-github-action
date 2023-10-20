@@ -1,0 +1,28 @@
+name: Workflow for ikido action
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  main:
+    runs-on: self-hosted
+    permissions:
+      checks: write
+      issues: write
+      discussions: write
+      pull-requests: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run ikido-action
+        uses: ./
+        with :
+          username: ${{ secrets.IKIDO_USERNAME }}
+          password: ${{ secrets.IKIDO_PASSWORD }}
+          ikido-url: ${{ secrets.IKIDO_TEST_SERVER }}
+          s3-bucket: ${{ secrets.AWS_IKIDO_BUCKED }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
