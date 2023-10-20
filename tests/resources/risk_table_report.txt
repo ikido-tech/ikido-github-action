@@ -1,0 +1,5 @@
+## High Risk items details
+| Customer PN | Manufacturer PN | Life Cycle | Risk Reason | Category | Item description |
+| ----- | ----- | ----- | ----- | ----- | ----- |
+| C1005X7R1E104M | C1005X7R1E104M | Active | No purchase |  | Chip Capacitor, 0.1 uF, +/- 20%, 25 V, -55 to 125 degC, 0402 (1005 Metric), RoHS, Tape and Reel |
+| AS0A823-H8SB-7H | AS0A823-H8SB-7H | Active | No purchase |  | Surface Mount Horizontal Type DDR4 DIMM Socket Connector, 260 Position, Pitch 0.5 mm, -55 to 85 degC, Halogen/Lead Free, Tape and Reel |
