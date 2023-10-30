@@ -24,5 +24,5 @@ jobs:
           username: ${{ secrets.IKIDO_USERNAME }}
           password: ${{ secrets.IKIDO_PASSWORD }}
           ikido-url: ${{ secrets.IKIDO_TEST_SERVER }}
-          s3-bucket: ${{ secrets.AWS_IKIDO_BUCKED }}
+          s3-bucket: ${{ secrets.AWS_IKIDO_BUCKET }}
           github-token: ${{ secrets.GITHUB_TOKEN }}

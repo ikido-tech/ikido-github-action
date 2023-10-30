@@ -8,9 +8,13 @@ inputs:
     description: 'IKIDO password'
     required: true
   scan-label:
-    description: 'Scan label'
+    description: 'Scan label. If settings specified, will use label from settings file'
     required: false
     default: 'result'
+  settings:
+    description: 'JSON file contains settings for BOM scan'
+    required: false
+    default: ''
   ikido-url:
     description: 'IKIDO url for perform BOM scan'
     required: false
@@ -19,20 +23,13 @@ inputs:
     description: 'Path to PCB project'
     required: false
     default: './'
-  result-path:
-    description: 'Path to .csv result file'
-    required: false
-    default: './result.csv'
   s3-bucket:
     description: 'Bucket with ikido-cli binary'
     required: false
+    default: 'https://parsed-bom-bucked.s3.eu-north-1.amazonaws.com/ikido'
   github-token:
     description: 'Github instance'
     required: true
-outputs:
-  random-number:
-    description: "Random number"
-    value: ''
 runs:
   using: "composite"
   steps:
@@ -50,22 +47,14 @@ runs:
       run: |
         chmod +x ./ikido-cli
       shell: bash
-    - name: 'Extract BOM .csv file from project'
-      run: |
-        ./ikido-cli extract-bom-csv --project_path ${{ inputs.project-path }} --csv_path ${{ inputs.result-path }}
-      shell: bash
     - name: 'Configure IKIDO cli'
       run: |
         ./ikido-cli configure --url ${{ inputs.ikido-url }} --username ${{ inputs.username }} --password ${{ inputs.password }}
       shell: bash
-    - name: 'Create settings file'
-      run: |
-        echo '{"label":"${{ inputs.scan-label }}"}' >> settings.json
-      shell: bash
-    - name: 'Scan bom file'
+    - name: 'Scan PCB project'
       continue-on-error: true
       run: |
-        ./ikido-cli scan --export result.zip ${{ inputs.result-path }} settings.json >> ikido_output.txt
+        ./ikido-cli scan-cad --project_path ${{ inputs.project-path }} --scan-label ${{ inputs.scan-label }} --export result.zip --settings ${{ inputs.settings }} >> ikido_output.txt
       shell: bash
     - name: Unpack scan result archive
       run: |
