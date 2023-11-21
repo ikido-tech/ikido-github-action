@@ -44,7 +44,7 @@ runs:
       shell: bash
     - name: "Add result comment to the commit"
       run: |
-        chmod +x /.gh-ikido-action
+        chmod +x ./gh-ikido-action
         ./gh-ikido-action
       env:
         GITHUB_TOKEN: ${{ github.token }}
