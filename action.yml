@@ -1,0 +1,54 @@
+name: 'IKIDO action'
+description: ''
+inputs:
+  username:
+    description: 'IKIDO username'
+    required: true
+  password:
+    description: 'IKIDO password'
+    required: true
+  ikido-url:
+    description: 'IKIDO url for perform BOM scan'
+    required: false
+    default: 'https://app.ikido.tech'
+  project-path:
+    description: 'Path to PCB project'
+    required: false
+    default: './'
+runs:
+  using: "composite"
+  steps:
+    - name: 'Checkout'
+      uses: actions/checkout@v4
+    - name: 'Download ikido-cli'
+      run: |
+        curl -O https://public.cloud.ikido.tech/cli/linux/ikido
+      shell: bash
+    - name: 'Configure IKIDO cli'
+      run: |
+        ./ikido configure --url ${{ inputs.ikido-url }} --username ${{ inputs.username }} --password ${{ inputs.password }}
+      shell: bash
+    - name: 'Scan PCB project'
+      continue-on-error: true
+      run: |
+        ./ikido scan-cad --project_path ${{ inputs.project-path }} --scan-label ${{ github.repository }} --export result.zip >> ikido_output.txt
+      shell: bash
+    - name: Get ikido platform URL
+      run: |
+        echo "IKDO_URL=${{ inputs.ikido-url }}" >> $GITHUB_ENV
+      shell: bash
+    - name: 'Download gh-ikido-action'
+      run: |
+        curl -LJ -o gh-ikido-action https://github.com/ikido-tech/ikido-github-action/releases/download/v0.0.1/gh-ikido-action
+      shell: bash
+    - name: "Add result comment to the commit"
+      run: |
+        ./gh-ikido-action
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+        GITHUB_SENDER_LOGIN: ${{ github.event.sender.login }}
+        GITHUB_REPO_HTML_URL: ${{ github.event.repository.html_url }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_BRANCH: ${{ github.ref }}
+      shell: bash
