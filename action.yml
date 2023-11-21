@@ -26,6 +26,7 @@ runs:
       shell: bash
     - name: 'Configure IKIDO cli'
       run: |
+        chmod +x ./ikido
         ./ikido configure --url ${{ inputs.ikido-url }} --username ${{ inputs.username }} --password ${{ inputs.password }}
       shell: bash
     - name: 'Scan PCB project'
@@ -43,6 +44,7 @@ runs:
       shell: bash
     - name: "Add result comment to the commit"
       run: |
+        chmod +x /.gh-ikido-action
         ./gh-ikido-action
       env:
         GITHUB_TOKEN: ${{ github.token }}
