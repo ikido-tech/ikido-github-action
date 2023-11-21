@@ -15,8 +15,11 @@ def unzip_result():
 if __name__ == '__main__':
     unzip_result()
     github = GitHub()
-    output = Output('./ikido_output.txt', './result/insights.csv')
-    short_report = base_report(output, github.sender_login, github.commit_url, github.commit_sha)
+    ikido_url = os.environ['IKIDO_URL']
+    output_path = os.path.abspath('./ikido_output.txt')
+    result_path = os.path.abspath('./result/insights.csv')
+    output = Output(output_path, result_path)
+    short_report = base_report(output, github.sender_login, github.commit_url, github.commit_sha, ikido_url)
     github.post_pr_comment(short_report)
     check_name = 'IKIDO'
     title = 'IKIDO check finished successfully'
