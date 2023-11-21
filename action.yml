@@ -32,7 +32,7 @@ runs:
     - name: 'Scan PCB project'
       continue-on-error: true
       run: |
-        ./ikido scan-cad --project_path ${{ inputs.project-path }} --scan-label ${{ github.repository }} --export result.zip >> ikido_output.txt
+        ./ikido scan-cad --project_path "${{ inputs.project-path }}" --scan_label "${{ github.repository }}/${{ github.ref_name }}" --export result.zip >> ikido_output.txt
       shell: bash
     - name: Get ikido platform URL
       run: |
