@@ -12,7 +12,7 @@ class TestTemplates(unittest.TestCase):
         with open(self.data.base_report, 'r') as file:
             test_report = file.read()
         output = Output(self.data.output_risk_3, self.data.insights_risk_3)
-        report = base_report(output, 'user', 'https://github.com/commit_url', '659620')
+        report = base_report(output, 'user', 'https://github.com/commit_url', '659620', 'https://app.ikido.tech')
         self.assertEqual(test_report, report)
 
     def test_risk_table_report(self):

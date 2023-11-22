@@ -7,10 +7,6 @@ inputs:
   password:
     description: 'IKIDO password'
     required: true
-  ikido-url:
-    description: 'IKIDO url for perform BOM scan'
-    required: false
-    default: 'https://app.ikido.tech'
   project-path:
     description: 'Path to PCB project'
     required: false
@@ -34,10 +30,6 @@ runs:
       run: |
         ./ikido scan-cad --project_path "${{ inputs.project-path }}" --scan_label "${{ github.repository }}/${{ github.ref_name }}" --export result.zip >> ikido_output.txt
       shell: bash
-    - name: Get ikido platform URL
-      run: |
-        echo "IKDO_URL=${{ inputs.ikido-url }}" >> $GITHUB_ENV
-      shell: bash
     - name: 'Download gh-ikido-action'
       run: |
         curl -LJ -o gh-ikido-action https://github.com/ikido-tech/ikido-github-action/releases/download/v0.0.1/gh-ikido-action
@@ -47,6 +39,7 @@ runs:
         chmod +x ./gh-ikido-action
         ./gh-ikido-action
       env:
+        IKIDO_URL: "https://app.ikido.tech"
         GITHUB_TOKEN: ${{ github.token }}
         GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
         GITHUB_SENDER_LOGIN: ${{ github.event.sender.login }}

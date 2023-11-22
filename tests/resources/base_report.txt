@@ -1,4 +1,4 @@
-## [IKIDO](http://test.ikido.tech:8085/#/workspace/6544ffa2fe01abe328759491) Report
+## [IKIDO](https://app.ikido.tech/#/workspace/6544ffa2fe01abe328759491) Report
 > The <a href="https://github.com/commit_url" title="@user">659620</a> (@user) scan result:
 * **Total Found:** 3
 * :heavy_check_mark: **OK** 1
@@ -7,4 +7,4 @@
 * :red_circle: **High Risk** 2
 * :white_square_button: **Not Found** 0
 
-For more information please visit [IKIDO](http://test.ikido.tech:8085/#/workspace/6544ffa2fe01abe328759491) website
+For more information please visit [IKIDO](https://app.ikido.tech/#/workspace/6544ffa2fe01abe328759491) website

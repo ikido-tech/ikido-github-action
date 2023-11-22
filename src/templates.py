@@ -1,8 +1,8 @@
 from src.output import Output
 
 
-def base_report(output: Output, owner, commit_url, head_sha):
-    workspace_url = f"http://test.ikido.tech:8085/#/workspace/{output.workspace_id}"
+def base_report(output: Output, owner, commit_url, head_sha, ikido_url):
+    workspace_url = f"{ikido_url}/#/workspace/{output.workspace_id}"
     return f'''## [IKIDO]({workspace_url}) Report
 > The <a href="{commit_url}" title="@{owner}">{head_sha[:6]}</a> (@{owner}) scan result:
 * **Total Found:** {output.total_count}
