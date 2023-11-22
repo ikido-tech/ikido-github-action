@@ -7,6 +7,10 @@ inputs:
   password:
     description: 'IKIDO password'
     required: true
+  ikido-url:
+    description: 'IKIDO url for perform BOM scan'
+    required: false
+    default: 'https://app.ikido.tech'
   project-path:
     description: 'Path to PCB project'
     required: false
@@ -23,7 +27,7 @@ runs:
     - name: 'Configure IKIDO cli'
       run: |
         chmod +x ./ikido
-        ./ikido configure --url ${{ inputs.ikido-url }} --username ${{ inputs.username }} --password ${{ inputs.password }}
+        ./ikido configure --url ${{ inputs.ikido-url }}  --username "${{ inputs.username }}" --password "${{ inputs.password }}"
       shell: bash
     - name: 'Scan PCB project'
       continue-on-error: true
@@ -39,7 +43,7 @@ runs:
         chmod +x ./gh-ikido-action
         ./gh-ikido-action
       env:
-        IKIDO_URL: "https://app.ikido.tech"
+        IKIDO_URL: ${{ inputs.ikido-url }}
         GITHUB_TOKEN: ${{ github.token }}
         GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
         GITHUB_SENDER_LOGIN: ${{ github.event.sender.login }}
